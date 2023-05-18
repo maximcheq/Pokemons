@@ -15,7 +15,8 @@ class ViewController: UIViewController {
         return tableView
     }()
     
-    var pokemons = [Pokemon]()
+    private var pokemons = [Pokemon]()
+    private var nextPokemonsUrl = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,10 +24,11 @@ class ViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         
         tableView.dataSource = self
-        tableView.dataSource = self
+        tableView.delegate = self
         view.addSubview(tableView)
         
-        fetchData()
+        fetchNextPokemonsUrl(with: NetworkManager.urlStr)
+        fetchPokemons()
     }
     
     override func viewDidLayoutSubviews() {
@@ -34,14 +36,50 @@ class ViewController: UIViewController {
         tableView.frame = view.bounds
     }
     
-    func fetchData() {
-        NetworkManager.shared.getPokemonsList { result in
+    func fetchPokemons() {
+        NetworkManager.shared.getPokemonsList(urlStr: NetworkManager.urlStr) { result in
             switch result {
             case .success(let pokemons):
                 self.pokemons = pokemons
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    func fetchNextPokemonsUrl(with url: String) {
+        NetworkManager.shared.getNewPokemonsUrl(urlStr: url) { result in
+            switch result {
+            case .success(let urlStr):
+                self.nextPokemonsUrl = urlStr
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    func fetchNextPokemons() {
+        NetworkManager.shared.getPokemonsList(urlStr: nextPokemonsUrl) { result in
+            switch result {
+            case .success(let pokemons):
+                self.pokemons.append(contentsOf: pokemons)
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    func updateNextPokemonsUrl() {
+        NetworkManager.shared.getNewPokemonsUrl(urlStr: nextPokemonsUrl) { result in
+            switch result {
+            case .success(let urlStr):
+                self.nextPokemonsUrl = urlStr
             case .failure(let error):
                 print(error)
             }
@@ -57,12 +95,18 @@ extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "pokemonCell", for: indexPath)
         let pokemon = pokemons[indexPath.row]
-        cell.textLabel?.text = pokemon.name
+        cell.textLabel?.text = "\(indexPath.row + 1) \(pokemon.name)"
         return cell
     }
 }
 
 extension ViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        if indexPath.row == pokemons.count - 1 {
+            fetchNextPokemons()
+            fetchNextPokemonsUrl(with: nextPokemonsUrl)
+        }
+    }
 }
 
