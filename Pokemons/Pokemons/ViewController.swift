@@ -44,7 +44,9 @@ class ViewController: UIViewController {
                     self.tableView.reloadData()
                 }
             case .failure(let error):
-                print(error)
+                DispatchQueue.main.async {
+                    self.createAlert(error)
+                }
             }
         }
     }
@@ -55,7 +57,9 @@ class ViewController: UIViewController {
             case .success(let urlStr):
                 self.nextPokemonsUrl = urlStr
             case .failure(let error):
-                print(error)
+                DispatchQueue.main.async {
+                    self.createAlert(error)
+                }
             }
         }
     }
@@ -69,7 +73,9 @@ class ViewController: UIViewController {
                     self.tableView.reloadData()
                 }
             case .failure(let error):
-                print(error)
+                DispatchQueue.main.async {
+                    self.createAlert(error)
+                }
             }
         }
     }
@@ -105,6 +111,14 @@ extension ViewController: UITableViewDelegate {
         vc.selectedPokemon = pokemon
         
         navigationController?.present(vc, animated: true)
+    }
+}
+
+extension UIViewController {
+    func createAlert(_ error: Error) {
+        let ac = UIAlertController(title: "Something went wrong", message: error.localizedDescription, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .default))
+        present(ac, animated: true)
     }
 }
 

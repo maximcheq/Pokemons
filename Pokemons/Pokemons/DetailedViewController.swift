@@ -36,7 +36,9 @@ class DetailedViewController: UIViewController {
                     self.updateUI(with: pokemon)
                 }
             case .failure(let error):
-                print(error)
+                DispatchQueue.main.async {
+                    self.createAlert(error)
+                }
             }
         }
     }
@@ -50,7 +52,9 @@ class DetailedViewController: UIViewController {
                     self.pokemonImageView.image = UIImage(data: data)
                 }
             case .failure(let error):
-                print(error)
+                DispatchQueue.main.async {
+                    self.createAlert(error)
+                }
             }
         }
     }
