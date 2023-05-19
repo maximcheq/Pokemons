@@ -8,7 +8,6 @@
 import UIKit
 
 class ViewController: UIViewController {
-    
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "pokemonCell")
@@ -84,7 +83,7 @@ extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "pokemonCell", for: indexPath)
         let pokemon = pokemons[indexPath.row]
-        cell.textLabel?.text = "\(indexPath.row + 1) \(pokemon.name.capitalized)"
+        cell.textLabel?.text = "\(indexPath.row + 1). \(pokemon.name.capitalized)"
         cell.accessoryType = .disclosureIndicator
         return cell
     }

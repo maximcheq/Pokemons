@@ -42,7 +42,7 @@ class DetailedViewController: UIViewController {
     }
     
     func fetchImage() {
-        guard let pokemon = detailedPokemon else { return }
+        guard let pokemon = detailedPokemon else { return }        
         NetworkManager.shared.getPokemonImage(urlStr: pokemon.sprites.frontDefault) { result in
             switch result {
             case .success(let data):

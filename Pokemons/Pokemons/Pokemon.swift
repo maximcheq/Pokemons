@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct Response: Codable {
+class Response: Codable {
     let count: Int
     let next: String
     let results: [Pokemon]
 }
 
-struct Pokemon: Codable {
+class Pokemon: Codable {
     let name: String
     let url: String
 }
