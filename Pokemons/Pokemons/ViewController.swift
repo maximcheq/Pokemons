@@ -92,7 +92,6 @@ extension ViewController: UITableViewDataSource {
 
 extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
         if indexPath.row == pokemons.count - 1 {
             fetchNextPokemons()
             fetchNextPokemonsUrl(with: nextPokemonsUrl)
@@ -105,6 +104,7 @@ extension ViewController: UITableViewDelegate {
         guard let vc = storyboard?.instantiateViewController(identifier: "DetailedViewController") as? DetailedViewController else { return }
         let pokemon = pokemons[indexPath.row]
         vc.selectedPokemon = pokemon
+        
         navigationController?.present(vc, animated: true)
     }
 }

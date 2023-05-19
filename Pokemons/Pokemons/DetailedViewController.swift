@@ -15,17 +15,59 @@ class DetailedViewController: UIViewController {
     @IBOutlet weak var nameLabel: UILabel!
     
     var selectedPokemon: Pokemon?
-    var pokemonInfoUrl: String?
+    var detailedPokemon: DetailedPokemon?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if let selectedPokemon {
             nameLabel.text = selectedPokemon.name.capitalized
-            pokemonInfoUrl = selectedPokemon.url
-            typesLabel.text = pokemonInfoUrl
-        
+            fetchDetailedPokemonInfo(url: selectedPokemon.url)
         }
+    }
+    
+    func fetchDetailedPokemonInfo(url: String) {
+        NetworkManager.shared.getDetailedPokemonInfo(urlStr: url) { result in
+            switch result{
+            case .success(let detailedPokemon):
+                self.detailedPokemon = detailedPokemon
+                guard let pokemon = self.detailedPokemon else { return }
+                DispatchQueue.main.async {
+                    self.updateUI(with: pokemon)
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    func fetchImage() {
+        guard let pokemon = detailedPokemon else { return }
+        NetworkManager.shared.getPokemonImage(urlStr: pokemon.sprites.frontDefault) { result in
+            switch result {
+            case .success(let data):
+                DispatchQueue.main.async {
+                    self.pokemonImageView.image = UIImage(data: data)
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    func updateUI(with pokemon: DetailedPokemon) {
+        var names = [String]()
+        for name in pokemon.types {
+            names.append(name.type.name)
+        }
+        
+        DispatchQueue.main.async {
+            self.typesLabel.text = "Types: " + names.joined(separator: ", ")
+            self.heightLabel.text = "Height: \(pokemon.height * 10) cm"
+            self.weightLabel.text = "Weight: \(pokemon.weight / 10) kg"
+        }
+        
+        fetchImage()
     }
     
     @IBAction func goBackButtonTapped(_ sender: Any) {

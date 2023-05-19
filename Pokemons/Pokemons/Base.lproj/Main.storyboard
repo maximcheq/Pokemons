@@ -32,15 +32,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="square.grid.3x1.folder.fill.badge.plus" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="pgp-V2-9Hc">
-                                <rect key="frame" x="96.666666666666671" y="130.33333333333331" width="201.33333333333331" height="197.33333333333331"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pgp-V2-9Hc">
+                                <rect key="frame" x="71.666666666666686" y="147" width="250" height="250"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="Teu-ri-huV"/>
-                                    <constraint firstAttribute="width" constant="200" id="wd1-78-Gul"/>
+                                    <constraint firstAttribute="height" constant="250" id="Teu-ri-huV"/>
+                                    <constraint firstAttribute="width" constant="250" id="wd1-78-Gul"/>
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="Zf1-Ee-jPg">
-                                <rect key="frame" x="20" y="396" width="353" height="150"/>
+                                <rect key="frame" x="20" y="464" width="353" height="150"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Types" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lfV-oD-GkQ">
                                         <rect key="frame" x="0.0" y="0.0" width="64" height="30"/>
@@ -63,7 +63,7 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0IF-qQ-DRt">
-                                <rect key="frame" x="139.33333333333334" y="696" width="114.66666666666666" height="40"/>
+                                <rect key="frame" x="139.33333333333334" y="744" width="114.66666666666666" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="Gkg-b3-glD"/>
                                 </constraints>
@@ -76,7 +76,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uUL-vf-aW3">
-                                <rect key="frame" x="20" y="69" width="353" height="50"/>
+                                <rect key="frame" x="20" y="69" width="353" height="48"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -87,15 +87,14 @@
                         <constraints>
                             <constraint firstItem="0IF-qQ-DRt" firstAttribute="centerX" secondItem="cZZ-Ws-Tuc" secondAttribute="centerX" id="I9R-X0-yg4"/>
                             <constraint firstItem="Zf1-Ee-jPg" firstAttribute="leading" secondItem="ppM-Gz-LrD" secondAttribute="leading" constant="20" id="L0m-n3-SCN"/>
-                            <constraint firstItem="0IF-qQ-DRt" firstAttribute="top" secondItem="Zf1-Ee-jPg" secondAttribute="bottom" constant="150" id="LXL-9g-EZP"/>
+                            <constraint firstItem="0IF-qQ-DRt" firstAttribute="top" secondItem="Zf1-Ee-jPg" secondAttribute="bottom" constant="130" id="LXL-9g-EZP"/>
                             <constraint firstItem="uUL-vf-aW3" firstAttribute="leading" secondItem="ppM-Gz-LrD" secondAttribute="leading" constant="20" id="ScZ-PG-Vwn"/>
                             <constraint firstItem="pgp-V2-9Hc" firstAttribute="centerX" secondItem="cZZ-Ws-Tuc" secondAttribute="centerX" id="U91-Xx-cAY"/>
                             <constraint firstItem="ppM-Gz-LrD" firstAttribute="trailing" secondItem="uUL-vf-aW3" secondAttribute="trailing" constant="20" id="a9P-Uh-jdC"/>
                             <constraint firstItem="uUL-vf-aW3" firstAttribute="top" secondItem="ppM-Gz-LrD" secondAttribute="top" constant="10" id="f16-99-p15"/>
                             <constraint firstItem="Zf1-Ee-jPg" firstAttribute="top" secondItem="pgp-V2-9Hc" secondAttribute="bottom" constant="67" id="hug-xK-zPz"/>
-                            <constraint firstItem="pgp-V2-9Hc" firstAttribute="top" secondItem="ppM-Gz-LrD" secondAttribute="top" constant="70" id="jcg-Vg-WiY"/>
                             <constraint firstItem="ppM-Gz-LrD" firstAttribute="trailing" secondItem="Zf1-Ee-jPg" secondAttribute="trailing" constant="20" id="mXS-ax-Kc4"/>
-                            <constraint firstItem="pgp-V2-9Hc" firstAttribute="top" secondItem="uUL-vf-aW3" secondAttribute="bottom" constant="10" id="nzC-3m-we8"/>
+                            <constraint firstItem="pgp-V2-9Hc" firstAttribute="top" secondItem="uUL-vf-aW3" secondAttribute="bottom" constant="30" id="nzC-3m-we8"/>
                         </constraints>
                     </view>
                     <connections>
@@ -130,7 +129,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="square.grid.3x1.folder.fill.badge.plus" catalog="system" width="128" height="92"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
