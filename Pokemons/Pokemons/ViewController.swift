@@ -74,17 +74,6 @@ class ViewController: UIViewController {
             }
         }
     }
-    
-    func updateNextPokemonsUrl() {
-        NetworkManager.shared.getNewPokemonsUrl(urlStr: nextPokemonsUrl) { result in
-            switch result {
-            case .success(let urlStr):
-                self.nextPokemonsUrl = urlStr
-            case .failure(let error):
-                print(error)
-            }
-        }
-    }
 }
 
 extension ViewController: UITableViewDataSource {
@@ -95,7 +84,8 @@ extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "pokemonCell", for: indexPath)
         let pokemon = pokemons[indexPath.row]
-        cell.textLabel?.text = "\(indexPath.row + 1) \(pokemon.name)"
+        cell.textLabel?.text = "\(indexPath.row + 1) \(pokemon.name.capitalized)"
+        cell.accessoryType = .disclosureIndicator
         return cell
     }
 }
@@ -107,6 +97,15 @@ extension ViewController: UITableViewDelegate {
             fetchNextPokemons()
             fetchNextPokemonsUrl(with: nextPokemonsUrl)
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        guard let vc = storyboard?.instantiateViewController(identifier: "DetailedViewController") as? DetailedViewController else { return }
+        let pokemon = pokemons[indexPath.row]
+        vc.selectedPokemon = pokemon
+        navigationController?.present(vc, animated: true)
     }
 }
 
