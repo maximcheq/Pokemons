@@ -8,15 +8,18 @@
 import UIKit
 
 class DetailedViewController: UIViewController {
+    // MARK: - @IBOutlets
     @IBOutlet weak var pokemonImageView: UIImageView!
     @IBOutlet weak var typesLabel: UILabel!
     @IBOutlet weak var weightLabel: UILabel!
     @IBOutlet weak var heightLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     
+    // MARK: - Properties
     var selectedPokemon: Pokemon?
     var detailedPokemon: DetailedPokemon?
     
+    // MARK: - UIViewController Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,7 +29,8 @@ class DetailedViewController: UIViewController {
         }
     }
     
-    func fetchDetailedPokemonInfo(url: String) {
+    // MARK: - Methods
+    private func fetchDetailedPokemonInfo(url: String) {
         NetworkManager.shared.getDetailedPokemonInfo(urlStr: url) { result in
             switch result{
             case .success(let detailedPokemon):
@@ -43,7 +47,7 @@ class DetailedViewController: UIViewController {
         }
     }
     
-    func fetchImage() {
+    private func fetchImage() {
         guard let pokemon = detailedPokemon else { return }        
         NetworkManager.shared.getPokemonImage(urlStr: pokemon.sprites.frontDefault) { result in
             switch result {
@@ -59,7 +63,7 @@ class DetailedViewController: UIViewController {
         }
     }
     
-    func updateUI(with pokemon: DetailedPokemon) {
+    private func updateUI(with pokemon: DetailedPokemon) {
         var names = [String]()
         for name in pokemon.types {
             names.append(name.type.name)
@@ -74,6 +78,7 @@ class DetailedViewController: UIViewController {
         fetchImage()
     }
     
+    // MARK: - @IBActions
     @IBAction func goBackButtonTapped(_ sender: Any) {
         dismiss(animated: true)
     }

@@ -8,6 +8,7 @@
 import UIKit
 
 class ViewController: UIViewController {
+    // MARK: - Properties
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "pokemonCell")
@@ -17,6 +18,7 @@ class ViewController: UIViewController {
     private var pokemons = [Pokemon]()
     private var nextPokemonsUrl = ""
 
+    // MARK: - UIViewController Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Pokemons"
@@ -35,7 +37,8 @@ class ViewController: UIViewController {
         tableView.frame = view.bounds
     }
     
-    func fetchPokemons() {
+    // MARK: - Methods
+    private func fetchPokemons() {
         NetworkManager.shared.getPokemonsList(urlStr: NetworkManager.urlStr) { result in
             switch result {
             case .success(let pokemons):
@@ -51,7 +54,7 @@ class ViewController: UIViewController {
         }
     }
     
-    func fetchNextPokemonsUrl(with url: String) {
+    private func fetchNextPokemonsUrl(with url: String) {
         NetworkManager.shared.getNewPokemonsUrl(urlStr: url) { result in
             switch result {
             case .success(let urlStr):
@@ -64,7 +67,7 @@ class ViewController: UIViewController {
         }
     }
     
-    func fetchNextPokemons() {
+    private func fetchNextPokemons() {
         NetworkManager.shared.getPokemonsList(urlStr: nextPokemonsUrl) { result in
             switch result {
             case .success(let pokemons):
@@ -81,6 +84,7 @@ class ViewController: UIViewController {
     }
 }
 
+// MARK: - UITableViewDataSource extension
 extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return pokemons.count
@@ -95,6 +99,7 @@ extension ViewController: UITableViewDataSource {
     }
 }
 
+// MARK: - UITableViewDelegate extension
 extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == pokemons.count - 1 {
@@ -114,6 +119,7 @@ extension ViewController: UITableViewDelegate {
     }
 }
 
+// MARK: - UIViewController extension
 extension UIViewController {
     func createAlert(_ error: Error) {
         let ac = UIAlertController(title: "Something went wrong", message: error.localizedDescription, preferredStyle: .alert)
