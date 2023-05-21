@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class PokemonListViewController: UIViewController {
     // MARK: - Properties
     private let tableView: UITableView = {
         let tableView = UITableView()
@@ -85,7 +85,7 @@ class ViewController: UIViewController {
 }
 
 // MARK: - UITableViewDataSource extension
-extension ViewController: UITableViewDataSource {
+extension PokemonListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return pokemons.count
     }
@@ -100,7 +100,7 @@ extension ViewController: UITableViewDataSource {
 }
 
 // MARK: - UITableViewDelegate extension
-extension ViewController: UITableViewDelegate {
+extension PokemonListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == pokemons.count - 1 {
             fetchNextPokemons()
